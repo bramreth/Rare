@@ -57,7 +57,7 @@ func button_click(button: Button):
 		item.disabled = true
 	$AudioStreamPlayer.set_stream(select_stream)
 	$AudioStreamPlayer.play()
-	#tween.interpolate_property(selector, "scale", selector.scale,  Vector2(0,0), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
+	tween.interpolate_property(selector, "scale", selector.scale,  Vector2(0,selector.scale.y), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
 	tween.interpolate_property(selector, "position", selector.position,  Vector2(0,selector.position.y), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
 	tween.start()
 	
