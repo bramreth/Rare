@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/peaceful.wav-1f8139514649ca643c22e2274a0dc2e3.sample"
+
+[deps]
+
+source_file="res://assets/peaceful.wav"
+dest_files=[ "res://.import/peaceful.wav-1f8139514649ca643c22e2274a0dc2e3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
