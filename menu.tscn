@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://menu.gd" type="Script" id=2]
+[ext_resource path="res://title_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://selector.png" type="Texture" id=4]
+[ext_resource path="res://idle_selector.tres" type="Animation" id=5]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -112.0
+margin_top = 126.35
+margin_right = 112.0
+margin_bottom = 184.35
+custom_fonts/font = ExtResource( 3 )
+text = "Rare"
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 400.0
+margin_top = 200.0
+margin_right = -400.0
+margin_bottom = -100.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 224.0
+margin_bottom = 300.0
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" groups=[
+"menu_buttons",
+]]
+margin_right = 224.0
+margin_bottom = 28.0
+focus_neighbour_top = NodePath("../Button3")
+focus_neighbour_bottom = NodePath("../Button2")
+text = "play"
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer" groups=[
+"menu_buttons",
+]]
+margin_top = 32.0
+margin_right = 224.0
+margin_bottom = 60.0
+text = "options"
+
+[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer" groups=[
+"menu_buttons",
+]]
+margin_top = 64.0
+margin_right = 224.0
+margin_bottom = 92.0
+text = "quit"
+
+[node name="selector" type="Sprite" parent="MarginContainer/VBoxContainer"]
+visible = false
+position = Vector2( -20, 0 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 140 )
+region_rect = Rect2( 0, 0, 500, 1000 )
+
+[node name="Tween" type="Tween" parent="MarginContainer/VBoxContainer/selector"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/VBoxContainer/selector"]
+anims/idle = ExtResource( 5 )
+
+[connection signal="tween_completed" from="MarginContainer/VBoxContainer/selector/Tween" to="." method="_on_Tween_tween_completed"]
