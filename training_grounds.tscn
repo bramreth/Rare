@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SegmentShape2D" id=1]
+b = Vector2( 1020, 0 )
+
+[sub_resource type="QuadMesh" id=2]
+size = Vector2( 1020, 2 )
+
+[node name="training_grounds" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 0, 550 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+position = Vector2( 510, 0 )
+mesh = SubResource( 2 )
+

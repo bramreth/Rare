@@ -7,13 +7,15 @@ onready var select = 0
 onready var buttons = get_tree().get_nodes_in_group("menu_buttons")
 var select_stream = preload("res://assets/select.wav")
 var highlight_stream = preload("res://assets/highlight.wav")
+var current_scene = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var root = get_tree().get_root()
+	current_scene = root.get_child(root.get_child_count() - 1)
 	for button in buttons:
 		button.connect("mouse_entered", self, "selected", [button])
 		button.connect("button_down", self, "button_click", [button])
-		
-
+    
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_up"):
@@ -68,8 +70,14 @@ func collapse_buttons(button: Button):
 		play_highlight()
 	for button in buttons:
 		button.visible = false
-	#options
 	
+	#play
+	if button == buttons[0]:
+		call_deferred("_deferred_goto_scene", "res://training_grounds.tscn")
+		
+	
+	
+	#options
 	if button == buttons[1]:
 		$MarginContainer/VBoxContainer/options.make_visible()
 	
@@ -102,3 +110,22 @@ func _on_options_back():
 
 func _on_options_play_select():
 	pass # Replace with function body.
+
+
+func _deferred_goto_scene(path):
+	$background2.queue_free()
+	$Label.queue_free()
+	$MarginContainer.queue_free()
+	#current_scene.queue_free()
+	
+	    # Load the new scene.
+	var s = ResourceLoader.load(path)
+
+    # Instance the new scene.
+	current_scene = s.instance()
+
+    # Add it to the active scene, as child of root.
+	get_tree().get_root().add_child(current_scene)
+
+    # Optionally, to make it compatible with the SceneTree.change_scene() API.
+	get_tree().set_current_scene(current_scene)

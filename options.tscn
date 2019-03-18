@@ -25,6 +25,8 @@ align = 1
 margin_top = 30.0
 margin_right = 1024.0
 margin_bottom = 50.0
+min_value = -80.0
+max_value = 0.0
 
 [node name="effets" type="Label" parent="options_container"]
 margin_top = 54.0
@@ -37,6 +39,9 @@ align = 1
 margin_top = 84.0
 margin_right = 1024.0
 margin_bottom = 104.0
+min_value = -80.0
+max_value = -10.0
+value = -10.0
 
 [node name="Button" type="Button" parent="options_container"]
 margin_top = 108.0
@@ -46,4 +51,6 @@ text = "back"
 
 [node name="Tween" type="Tween" parent="."]
 
+[connection signal="value_changed" from="options_container/music_slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="options_container/effects_slider" to="." method="_on_effects_slider_value_changed"]
 [connection signal="button_down" from="options_container/Button" to="." method="_back_button"]
