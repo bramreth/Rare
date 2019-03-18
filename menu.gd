@@ -34,9 +34,7 @@ func update_select():
 	tween.interpolate_property(selector, "offset", selector.offset,  Vector2(0,140), 0.1,Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$MarginContainer/VBoxContainer/selector/AnimationPlayer.stop()
 	tween.start()
-	
-	$AudioStreamPlayer.set_stream(highlight_stream)
-	$AudioStreamPlayer.play()
+	play_highlight()
 
 func selected(button: Button):
 	select = buttons.find(button)
@@ -52,30 +50,55 @@ func _on_AudioStreamPlayer2D_finished():
 	$AudioStreamPlayer2D.play()
 
 func button_click(button: Button):
-	collapse_buttons()
+	collapse_buttons(button)
 	for item in buttons:
 		item.disabled = true
-	$AudioStreamPlayer.set_stream(select_stream)
-	$AudioStreamPlayer.play()
+	play_select()
 	tween.interpolate_property(selector, "scale", selector.scale,  Vector2(0,selector.scale.y), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
 	tween.interpolate_property(selector, "position", selector.position,  Vector2(0,selector.position.y), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
 	tween.start()
 	
-func collapse_buttons():
+func collapse_buttons(button: Button):
 	var i = buttons.size()-1
 	while i >= 0:
 		button_tween.interpolate_property(buttons[i], "rect_scale", buttons[i].rect_scale,  Vector2(buttons[i].rect_scale.x,0), 0.3,Tween.TRANS_BACK, Tween.EASE_IN)
 		button_tween.start()
 		i -= 1
 		yield(button_tween, "tween_completed")
-		$AudioStreamPlayer.set_stream(highlight_stream)
-		$AudioStreamPlayer.play()
-	reset_buttons()
+		play_highlight()
+	for button in buttons:
+		button.visible = false
+	#options
+	
+	if button == buttons[1]:
+		$MarginContainer/VBoxContainer/options.make_visible()
+	
+	#quit
+	if button == buttons[2]:
+		get_tree().quit()
+		
+	#reset_buttons()
+	
+func play_highlight():
+	$AudioStreamPlayer.set_stream(highlight_stream)
+	$AudioStreamPlayer.play()
+	
+func play_select():
+	$AudioStreamPlayer.set_stream(select_stream)
+	$AudioStreamPlayer.play()
 	
 func reset_buttons():
 	for button in buttons:
 		button.rect_scale = Vector2(1,1)
+		button.visible = true
 		button.disabled = false
 	tween.interpolate_property(selector, "scale", selector.scale,  Vector2(0.1,0.1), 0.1,Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	tween.interpolate_property(selector, "position", selector.position,  Vector2(-20,selector.position.y), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
 	tween.start()
+
+func _on_options_back():
+	reset_buttons()
+
+
+func _on_options_play_select():
+	pass # Replace with function body.

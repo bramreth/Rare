@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://options.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="options_container" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="music" type="Label" parent="options_container"]
+margin_right = 1024.0
+margin_bottom = 26.0
+text = "music volume"
+align = 1
+
+[node name="music_slider" type="HSlider" parent="options_container"]
+margin_top = 30.0
+margin_right = 1024.0
+margin_bottom = 50.0
+
+[node name="effets" type="Label" parent="options_container"]
+margin_top = 54.0
+margin_right = 1024.0
+margin_bottom = 80.0
+text = "effects volume"
+align = 1
+
+[node name="effects_slider" type="HSlider" parent="options_container"]
+margin_top = 84.0
+margin_right = 1024.0
+margin_bottom = 104.0
+
+[node name="Button" type="Button" parent="options_container"]
+margin_top = 108.0
+margin_right = 1024.0
+margin_bottom = 136.0
+text = "back"
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="button_down" from="options_container/Button" to="." method="_back_button"]
