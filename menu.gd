@@ -29,6 +29,7 @@ func _ready():
 		#if button is Button:
 			
 			#button.connect("button_down", self, "button_click", [button])
+	update_select()
     
 
 func _process(delta):
@@ -121,9 +122,9 @@ func _deferred_goto_scene(path):
 
     # Instance the new scene.
 	current_scene = s.instance()
-
+	var player = ResourceLoader.load("Bloo.tscn")
     # Add it to the active scene, as child of root.
 	get_tree().get_root().add_child(current_scene)
-
+	current_scene.add_child(player.instance())
     # Optionally, to make it compatible with the SceneTree.change_scene() API.
 	get_tree().set_current_scene(current_scene)

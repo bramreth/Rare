@@ -111,8 +111,8 @@ stream = ExtResource( 12 )
 volume_db = -12.0
 script = ExtResource( 13 )
 
-[connection signal="tween_completed" from="MarginContainer/VBoxContainer/selector/Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="tween_completed" from="MarginContainer/VBoxContainer/selector/Tween" to="MarginContainer/VBoxContainer/selector" method="_on_Tween_tween_completed"]
+[connection signal="tween_completed" from="MarginContainer/VBoxContainer/selector/Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="back" from="MarginContainer/VBoxContainer/options" to="." method="_on_options_back"]
 [connection signal="change_effects_volume" from="MarginContainer/VBoxContainer/options" to="AudioStreamPlayer" method="set_volume"]
 [connection signal="change_volume" from="MarginContainer/VBoxContainer/options" to="AudioStreamPlayer2D" method="set_volume"]
