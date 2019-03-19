@@ -23,23 +23,26 @@ func _process(delta):
 		velocity.x = 0
 		match current_state:
 			state.FALL:
+				$KinematicBody2D/AnimatedSprite.stop()
 				if Input.is_action_pressed("move_left"):
 					if velocity.x > -0.5:
 						velocity.x -= 0.5
-						$KinematicBody2D/Sprite.flip_h = true
+						$KinematicBody2D/AnimatedSprite.flip_h = true
 				if Input.is_action_pressed("move_right"):
 					if velocity.x < 0.5:
 						velocity.x += 0.5
-						$KinematicBody2D/Sprite.flip_h = false
+						$KinematicBody2D/AnimatedSprite.flip_h = false
 			state.IDLE:
+				if not $KinematicBody2D/AnimatedSprite.playing:
+					$KinematicBody2D/AnimatedSprite.play()
 				if Input.is_action_pressed("move_left"):
 					if velocity.x > -1:
 						velocity.x -= 1
-						$KinematicBody2D/Sprite.flip_h = true
+						$KinematicBody2D/AnimatedSprite.flip_h = true
 				if Input.is_action_pressed("move_right"):
 					if velocity.x < 1:
 						velocity.x += 1
-						$KinematicBody2D/Sprite.flip_h = false
+						$KinematicBody2D/AnimatedSprite.flip_h = false
 				if Input.is_action_pressed("jump"):
 					velocity.y = -50000
 					current_state = state.FALL
