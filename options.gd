@@ -19,14 +19,6 @@ func make_visible():
 	
 	for child in $options_container.get_children():
 		child.visible = true
-	"""
-		tween.interpolate_property(child, "rect_scale", Vector2(child.rect_scale.x,0),  child.rect_scale, 0.3,Tween.TRANS_BACK, Tween.EASE_IN)
-		tween.start()
-		emit_signal("play_highlight")
-		yield(tween, "tween_completed")
-	"""
-
-
 
 func _back_button():
 	emit_signal("play_select")

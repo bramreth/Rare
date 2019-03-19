@@ -21,12 +21,15 @@ margin_bottom = 26.0
 text = "music volume"
 align = 1
 
-[node name="music_slider" type="HSlider" parent="options_container"]
+[node name="music_slider" type="HSlider" parent="options_container" groups=[
+"options_buttons",
+]]
 margin_top = 30.0
 margin_right = 1024.0
 margin_bottom = 50.0
 min_value = -80.0
 max_value = 0.0
+ticks_on_borders = true
 
 [node name="effets" type="Label" parent="options_container"]
 margin_top = 54.0
@@ -35,7 +38,9 @@ margin_bottom = 80.0
 text = "effects volume"
 align = 1
 
-[node name="effects_slider" type="HSlider" parent="options_container"]
+[node name="effects_slider" type="HSlider" parent="options_container" groups=[
+"options_buttons",
+]]
 margin_top = 84.0
 margin_right = 1024.0
 margin_bottom = 104.0
@@ -43,7 +48,9 @@ min_value = -80.0
 max_value = -10.0
 value = -10.0
 
-[node name="Button" type="Button" parent="options_container"]
+[node name="Button" type="Button" parent="options_container" groups=[
+"options_buttons",
+]]
 margin_top = 108.0
 margin_right = 1024.0
 margin_bottom = 136.0
