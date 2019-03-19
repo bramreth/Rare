@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
-[sub_resource type="SegmentShape2D" id=1]
+[sub_resource type="SegmentShape2D" id=4]
 b = Vector2( 1020, 0 )
 
 [sub_resource type="QuadMesh" id=2]
 size = Vector2( 1020, 2 )
+
+[sub_resource type="SegmentShape2D" id=1]
+b = Vector2( 0, 600 )
+
+[sub_resource type="QuadMesh" id=3]
+size = Vector2( 2, 600 )
 
 [node name="training_grounds" type="Node2D"]
 
@@ -12,9 +18,31 @@ size = Vector2( 1020, 2 )
 position = Vector2( 0, 550 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
 position = Vector2( 510, 0 )
 mesh = SubResource( 2 )
+
+[node name="wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall"]
+position = Vector2( 0, 300 )
+mesh = SubResource( 3 )
+
+[node name="wall2" type="StaticBody2D" parent="."]
+position = Vector2( 1020, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall2"]
+position = Vector2( 0, 300 )
+mesh = SubResource( 3 )
+
+[node name="spawn" type="Position2D" parent="."]
+position = Vector2( 508.529, 450 )
 

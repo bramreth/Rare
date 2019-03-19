@@ -18,6 +18,9 @@ texture = ExtResource( 2 )
 region_rect = Rect2( 500, 1000, 1000, 1000 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( -9.77405, -1.62903 )
 shape = SubResource( 1 )
+
+[node name="ground_detection" type="RayCast2D" parent="KinematicBody2D"]
+position = Vector2( -8.72687, 55.9542 )
+enabled = true
 
