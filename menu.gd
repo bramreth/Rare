@@ -19,9 +19,16 @@ func _ready():
 	
 	buttons = menu
 	
-	for button in buttons:
+	for button in menu:
 		button.connect("mouse_entered", self, "selected", [button])
-		button.connect("button_down", self, "button_click", [button])
+		if button is Button:
+			
+			button.connect("button_down", self, "button_click", [button])
+	for button in options:
+		button.connect("mouse_entered", self, "selected", [button])
+		#if button is Button:
+			
+			#button.connect("button_down", self, "button_click", [button])
     
 
 func _process(delta):
@@ -38,7 +45,7 @@ func update_select():
 	play_highlight()
 	
 
-func selected(button: Button):
+func selected(button):
 	select = buttons.find(button)
 	update_select()
 
@@ -71,7 +78,7 @@ func collapse_buttons(button: Button):
 		$MarginContainer/VBoxContainer/options.make_visible()
 		buttons = options
 		select = 0
-		selector.update_select(buttons[select])
+		selector.silent_move(buttons[select])
 	
 	#quit
 	if button == buttons[2]:
@@ -102,7 +109,6 @@ func _on_options_back():
 	selector.silent_move(buttons[select])
 	
 	selector.reset()
-
 
 func _deferred_goto_scene(path):
 	$background2.queue_free()

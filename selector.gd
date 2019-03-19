@@ -1,6 +1,7 @@
 extends Sprite
 
 onready var tween = get_node("Tween")
+var in_use = false
 
 func _ready():
 	$AnimationPlayer.play("idle")
@@ -10,11 +11,13 @@ func silent_move(target):
 	target_loc.x -= 20
 	self.position = target_loc
 	
-func update_select(target):
+	reset()
 	
+func update_select(target):
+	if in_use:
+		return
 	target.grab_focus()
 	
-	reset()
 		
 	var target_loc = target.rect_position
 	target_loc.x -= 20
@@ -26,13 +29,19 @@ func update_select(target):
 func _on_Tween_tween_completed(object, key):
 	if object == self:
 		$AnimationPlayer.play("idle")
+	if key == "scale":
+		self.visible = false
 		
 func click():
+	
 	tween.interpolate_property(self, "scale", self.scale,  Vector2(0,self.scale.y), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
 	tween.interpolate_property(self, "position", self.position,  Vector2(0,self.position.y), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
 	tween.start()
+	in_use = true
 	
 func reset():
+	self.visible = true
 	tween.interpolate_property(self, "scale", self.scale,  Vector2(0.1,0.1), 0.1,Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	tween.interpolate_property(self, "position", self.position,  Vector2(-20,self.position.y), 0.3,Tween.TRANS_BACK, Tween.EASE_OUT)
 	tween.start()
+	in_use = false

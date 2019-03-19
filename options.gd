@@ -19,7 +19,6 @@ func make_visible():
 	
 	for child in $options_container.get_children():
 		child.visible = true
-
 func _back_button():
 	emit_signal("play_select")
 	var i = $options_container.get_child_count()-1
