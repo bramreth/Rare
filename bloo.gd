@@ -9,7 +9,8 @@ onready var body = get_node("KinematicBody2D")
 
 enum state{
 		IDLE,
-		FALL
+		FALL,
+		RUN
 }
 var current_state = state.IDLE
 # Called when the node enters the scene tree for the first time.
@@ -33,8 +34,7 @@ func _process(delta):
 						velocity.x += 0.5
 						$KinematicBody2D/AnimatedSprite.flip_h = false
 			state.IDLE:
-				if not $KinematicBody2D/AnimatedSprite.playing:
-					$KinematicBody2D/AnimatedSprite.play()
+				
 				if Input.is_action_pressed("move_left"):
 					if velocity.x > -1:
 						velocity.x -= 1
@@ -51,6 +51,10 @@ func _process(delta):
 		if Input.is_action_just_released("jump") and velocity.y < 0:
 			velocity.y = 0
 		var tmp = Vector2()
+		if velocity.x:
+			$KinematicBody2D/AnimatedSprite.play("run")
+		else:
+			$KinematicBody2D/AnimatedSprite.play("idle")
 		match current_state:
 			state.FALL:
 				tmp = body.move_and_slide(velocity* delta * speed, GRAVITY_VECTOR)
