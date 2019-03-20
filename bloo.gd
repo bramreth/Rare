@@ -25,11 +25,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if delta > 0:
-		print(velocity)
+		#print(velocity)
 		velocity.x = 0
 		match current_state:
 			state.FALL:
-				$KinematicBody2D/AnimatedSprite.stop()
+				#$KinematicBody2D/AnimatedSprite.stop()
 				if Input.is_action_pressed("move_left"):
 					if velocity.x > -0.5:
 						velocity.x -= 0.5
@@ -49,6 +49,7 @@ func _process(delta):
 						velocity.x += 1
 						$KinematicBody2D/AnimatedSprite.flip_h = false
 				if Input.is_action_pressed("jump"):
+					$KinematicBody2D/AnimatedSprite.play("jump")
 					velocity.y = -50000
 					current_state = state.FALL
 				
@@ -56,21 +57,28 @@ func _process(delta):
 		if Input.is_action_just_released("jump") and velocity.y < 0:
 			velocity.y = 0
 		var tmp = Vector2()
-		if velocity.x:
-			$KinematicBody2D/AnimatedSprite.play("run")
-		else:
-			$KinematicBody2D/AnimatedSprite.play("idle")
+		if not (current_state == state.FALL or $KinematicBody2D/AnimatedSprite.animation == "fall"):
+			if velocity.x:
+				$KinematicBody2D/AnimatedSprite.play("run")
+			else:
+				$KinematicBody2D/AnimatedSprite.play("idle")
 		match current_state:
 			state.FALL:
 				tmp = body.move_and_slide(velocity* delta * speed, GRAVITY_VECTOR)
 			state.IDLE:
 				tmp = body.move_and_slide_with_snap(velocity * delta *speed, GRAVITY_VECTOR, Vector2(0, 32))
 		
-		#
+		print($KinematicBody2D/AnimatedSprite.animation)
 		if $KinematicBody2D/ground_detection.is_colliding():
-			velocity.y = 0
-			current_state = state.IDLE
+			if current_state == state.FALL:
+				velocity.y = 0
+				current_state = state.IDLE
+				$KinematicBody2D/AnimatedSprite.play("fall")
 		else:
 			current_state = state.FALL
 			velocity.y += GRAVITY
 		
+
+func _on_AnimatedSprite_animation_finished():
+	if $KinematicBody2D/AnimatedSprite.animation == "fall":
+		$KinematicBody2D/AnimatedSprite.play("idle")
