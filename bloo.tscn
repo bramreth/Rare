@@ -1,20 +1,28 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://bloo.gd" type="Script" id=1]
 [ext_resource path="res://bloo_idle_1.png" type="Texture" id=2]
 [ext_resource path="res://assets/bloo_idle_3.png" type="Texture" id=3]
 [ext_resource path="res://assets/bloo_idle_2.png" type="Texture" id=4]
 [ext_resource path="res://assets/bloo_idle_1.png" type="Texture" id=5]
+[ext_resource path="res://assets/bloo_run_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/bloo_run_2.png" type="Texture" id=7]
+[ext_resource path="res://assets/bloo_run_3.png" type="Texture" id=8]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 39.1468
 height = 119.099
 
@@ -31,13 +39,12 @@ region_rect = Rect2( 500, 1000, 1000, 1000 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
 scale = Vector2( 0.2, 0.2 )
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 animation = "idle"
-frame = 3
-playing = true
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="ground_detection" type="RayCast2D" parent="KinematicBody2D"]
 position = Vector2( -8.72687, 55.9542 )
