@@ -1,27 +1,28 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://bloo.gd" type="Script" id=1]
 [ext_resource path="res://bloo_idle_1.png" type="Texture" id=2]
-[ext_resource path="res://assets/bloo_idle_2.png" type="Texture" id=3]
-[ext_resource path="res://assets/bloo_idle_1.png" type="Texture" id=4]
-[ext_resource path="res://assets/bloo_idle_3.png" type="Texture" id=5]
-[ext_resource path="res://assets/bloo_idle_4.png" type="Texture" id=6]
-[ext_resource path="res://assets/bloo_run_1.png" type="Texture" id=7]
-[ext_resource path="res://assets/bloo_run_2.png" type="Texture" id=8]
+[ext_resource path="res://assets/bloo_idle_1_v2.png" type="Texture" id=3]
+[ext_resource path="res://assets/bloo_idle_2_v2.png" type="Texture" id=4]
+[ext_resource path="res://assets/bloo_idle_3_v2.png" type="Texture" id=5]
+[ext_resource path="res://assets/bloo_run_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/bloo_run_2.png" type="Texture" id=7]
+[ext_resource path="res://assets/bloo_run_5.png" type="Texture" id=8]
 [ext_resource path="res://assets/bloo_run_3.png" type="Texture" id=9]
 [ext_resource path="res://assets/bloo_run_4.png" type="Texture" id=10]
+[ext_resource path="res://assets/bloo_run_6.png" type="Texture" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "idle",
-"speed": 4.0
+"speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "run",
-"speed": 5.0
+"speed": 10.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]

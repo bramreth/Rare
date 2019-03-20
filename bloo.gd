@@ -13,6 +13,11 @@ enum state{
 		RUN
 }
 var current_state = state.IDLE
+
+"""
+todo: add gain and lose momentum animations, basic attack, extra frames in existing anims
+"""
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
