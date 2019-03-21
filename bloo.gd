@@ -10,12 +10,13 @@ onready var body = get_node("KinematicBody2D")
 enum state{
 		IDLE,
 		FALL,
-		RUN
+		RUN,
+		PUNCH
 }
 var current_state = state.IDLE
 
 """
-todo: add gain and lose momentum animations, basic attack, extra frames in existing anims
+todo: add gain and lose momentum animations, basic attack, extra frames in existing anims, probably a walk versus run
 """
 
 # Called when the node enters the scene tree for the first time.
@@ -39,7 +40,9 @@ func _process(delta):
 						velocity.x += 0.5
 						$KinematicBody2D/AnimatedSprite.flip_h = false
 			state.IDLE:
-				
+				if Input.is_action_just_pressed("punch"):
+					current_state = state.PUNCH
+					$KinematicBody2D/AnimatedSprite.play("punch")
 				if Input.is_action_pressed("move_left"):
 					if velocity.x > -1:
 						velocity.x -= 1
@@ -57,7 +60,8 @@ func _process(delta):
 		if Input.is_action_just_released("jump") and velocity.y < 0:
 			velocity.y = 0
 		var tmp = Vector2()
-		if not (current_state == state.FALL or $KinematicBody2D/AnimatedSprite.animation == "fall"):
+		if not (current_state == state.FALL or $KinematicBody2D/AnimatedSprite.animation == "fall"
+		or $KinematicBody2D/AnimatedSprite.animation == "punch"):
 			if velocity.x:
 				$KinematicBody2D/AnimatedSprite.play("run")
 			else:
@@ -80,5 +84,6 @@ func _process(delta):
 		
 
 func _on_AnimatedSprite_animation_finished():
-	if $KinematicBody2D/AnimatedSprite.animation == "fall":
+	if $KinematicBody2D/AnimatedSprite.animation == "fall" or $KinematicBody2D/AnimatedSprite.animation == "punch":
+		current_state = state.IDLE
 		$KinematicBody2D/AnimatedSprite.play("idle")
