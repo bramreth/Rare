@@ -1,7 +1,7 @@
 extends Node2D
 
 var velocity = Vector2(0,0)
-var speed = Vector2(30000,1)
+var speed = Vector2(50000,1)
 var GRAVITY_VECTOR = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -53,7 +53,7 @@ func _process(delta):
 						$KinematicBody2D/AnimatedSprite.flip_h = false
 				if Input.is_action_pressed("jump"):
 					$KinematicBody2D/AnimatedSprite.play("jump")
-					velocity.y = -50000
+					velocity.y = -60000
 					current_state = state.FALL
 				
 		#if jump is released cut the jump short

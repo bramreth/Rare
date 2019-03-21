@@ -66,6 +66,7 @@ texture = ExtResource( 2 )
 region_rect = Rect2( 500, 1000, 1000, 1000 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
+position = Vector2( 3.25806, 6.51607 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
 animation = "idle"
@@ -76,7 +77,11 @@ playing = true
 shape = SubResource( 2 )
 
 [node name="ground_detection" type="RayCast2D" parent="KinematicBody2D"]
-position = Vector2( -8.72687, 55.9542 )
+position = Vector2( 1.04724, 67.3573 )
 enabled = true
+
+[node name="Camera2D" type="Camera2D" parent="KinematicBody2D"]
+current = true
+offset_v = -1.0
 
 [connection signal="animation_finished" from="KinematicBody2D/AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
