@@ -1,94 +1,86 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/sky.png" type="Texture" id=1]
-[ext_resource path="res://grass_tiles.tres" type="TileSet" id=2]
-[ext_resource path="res://ghost_mob.tscn" type="PackedScene" id=3]
-
-[sub_resource type="SegmentShape2D" id=1]
-b = Vector2( 1020, 0 )
-
-[sub_resource type="QuadMesh" id=2]
-size = Vector2( 1020, 2 )
-
-[sub_resource type="SegmentShape2D" id=3]
-b = Vector2( 0, 600 )
-
-[sub_resource type="QuadMesh" id=4]
-size = Vector2( 2, 600 )
+[ext_resource path="res://assets/hills.png" type="Texture" id=2]
+[ext_resource path="res://assets/grass_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/grass_2.png" type="Texture" id=4]
+[ext_resource path="res://assets/grass_3.png" type="Texture" id=5]
+[ext_resource path="res://better_tilemap.tres" type="TileSet" id=6]
+[ext_resource path="res://ghost_mob.tscn" type="PackedScene" id=7]
 
 [node name="training_grounds" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-scroll_base_scale = Vector2( 0.3, 0.3 )
+editor/display_folded = true
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="sky" type="ParallaxLayer" parent="ParallaxBackground"]
+editor/display_folded = true
 position = Vector2( -590, -900 )
+motion_scale = Vector2( 0.3, 0.3 )
 motion_mirroring = Vector2( 1820, 0 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/sky"]
 position = Vector2( -30, 630 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 centered = false
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 200, 1230 )
+[node name="hills" type="ParallaxLayer" parent="ParallaxBackground"]
+editor/display_folded = true
+motion_scale = Vector2( 0.4, 0.4 )
+motion_offset = Vector2( 0.7, 0 )
+motion_mirroring = Vector2( 1920, 0 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/hills"]
+position = Vector2( -620, -280 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+centered = false
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
-position = Vector2( 510, 0 )
-mesh = SubResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="far_grass" type="ParallaxLayer" parent="ParallaxBackground"]
+editor/display_folded = true
+motion_scale = Vector2( 0.6, 0.6 )
+motion_mirroring = Vector2( 1920, 0 )
 
-[node name="wall" type="StaticBody2D" parent="."]
-position = Vector2( 130, 830 )
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/far_grass"]
+position = Vector2( -620, -270 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+centered = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
-shape = SubResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="mid_grass" type="ParallaxLayer" parent="ParallaxBackground"]
+editor/display_folded = true
+motion_scale = Vector2( 0.65, 0.65 )
+motion_mirroring = Vector2( 1920, 0 )
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="wall"]
-position = Vector2( 0, 300 )
-mesh = SubResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/mid_grass"]
+position = Vector2( -620, -270 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+centered = false
 
-[node name="wall2" type="StaticBody2D" parent="."]
-position = Vector2( 1030, 870 )
+[node name="close_grass" type="ParallaxLayer" parent="ParallaxBackground"]
+editor/display_folded = true
+motion_scale = Vector2( 0.7, 0.7 )
+motion_mirroring = Vector2( 1920, 0 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
-shape = SubResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="wall2"]
-position = Vector2( 0, 300 )
-mesh = SubResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/close_grass"]
+position = Vector2( -620, -270 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+centered = false
 
 [node name="spawn" type="Position2D" parent="."]
 position = Vector2( 511.319, 371.894 )
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 2 )
+scale = Vector2( 0.5, 0.5 )
+tile_set = ExtResource( 6 )
 cell_size = Vector2( 200, 200 )
 collision_use_kinematic = true
 format = 1
-tile_data = PoolIntArray( -196613, 0, 0, -196612, 0, 2, -196611, 1, 65537, -131077, 0, 65536, -131076, 0, 65538, -65541, 0, 65536, -65540, 0, 65538, -131047, 1, 65536, -131046, 0, 0, -131045, 0, 2, -5, 0, 65536, -4, 0, 65538, -65510, 0, 65536, -65509, 0, 65538, 65531, 0, 65536, 65532, 0, 65538, 17, 1, 65536, 18, 0, 1, 19, 0, 1, 20, 0, 1, 21, 0, 1, 22, 1, 65537, 26, 0, 65536, 27, 0, 65538, 131067, 0, 65536, 131068, 0, 65538, 65550, 1, 65536, 65551, 1, 65537, 65562, 0, 65536, 65563, 0, 65538, 196603, 0, 65536, 196604, 0, 65538, 131082, 0, 0, 131083, 0, 1, 131084, 0, 2, 131098, 0, 65536, 131099, 0, 65538, 262135, 0, 0, 262136, 0, 1, 262137, 0, 1, 262138, 0, 1, 262139, 0, 1, 262140, 0, 1, 262141, 0, 1, 262142, 0, 1, 262143, 0, 1, 196608, 0, 1, 196609, 0, 1, 196610, 0, 1, 196611, 0, 1, 196612, 0, 1, 196613, 0, 1, 196614, 0, 1, 196615, 0, 1, 196616, 0, 1, 196617, 0, 1, 196618, 0, 1, 196619, 0, 65537, 196620, 0, 1, 196621, 0, 1, 196622, 0, 1, 196623, 0, 1, 196624, 0, 1, 196625, 0, 1, 196626, 0, 1, 196627, 0, 1, 196628, 0, 1, 196629, 0, 1, 196630, 0, 1, 196631, 0, 1, 196632, 0, 1, 196633, 0, 1, 196634, 0, 1, 196635, 0, 1, 196636, 0, 1, 196637, 0, 1, 196638, 0, 1, 196639, 0, 2, 327671, 0, 131072, 327672, 0, 131073, 327673, 0, 131073, 327674, 0, 131073, 327675, 0, 131073, 327676, 0, 131073, 327677, 0, 131073, 327678, 0, 131073, 327679, 0, 131073, 262144, 0, 131073, 262145, 0, 131073, 262146, 0, 131073, 262147, 0, 131073, 262148, 0, 131073, 262149, 0, 131073, 262150, 0, 131073, 262151, 0, 131073, 262152, 0, 131073, 262153, 0, 131073, 262154, 0, 131073, 262155, 0, 131073, 262156, 0, 131073, 262157, 0, 131073, 262158, 0, 131073, 262159, 0, 131073, 262160, 0, 131073, 262161, 0, 131073, 262162, 0, 131073, 262163, 0, 131073, 262164, 0, 131073, 262165, 0, 131073, 262166, 0, 131073, 262167, 0, 131073, 262168, 0, 131073, 262169, 0, 131073, 262170, 0, 131073, 262171, 0, 131073, 262172, 0, 131073, 262173, 0, 131073, 262174, 0, 131073, 262175, 0, 131074 )
+tile_data = PoolIntArray( -196576, 536870912, 0, -65544, 536870912, 0, -131040, 536870912, 0, -8, 536870912, 0, -65504, 536870912, 0, 65528, 536870912, 0, 65531, 536870918, 0, 24, 536870918, 0, 32, 536870912, 0, 131064, 536870912, 0, 131067, 536870918, 0, 65560, 536870918, 0, 65568, 536870912, 0, 196600, 536870912, 0, 196603, 536870918, 0, 131079, 1, 0, 131081, 536870913, 0, 131096, 536870918, 0, 131104, 536870912, 0, 262136, 536870912, 0, 262139, 536870918, 0, 196611, 1, 0, 196632, 536870918, 0, 196640, 536870912, 0, 327672, 536870912, 0, 327675, 536870918, 0, 262150, 536870913, 0, 262168, 536870918, 0, 262176, 536870912, 0, 393208, 536870912, 0, 327697, 536870918, 0, 327698, 0, 2, 327699, 0, 0, 327700, 536870912, 2, 327701, 536870918, 0, 327702, 536870918, 0, 327703, 536870918, 0, 327704, 536870918, 0, 327712, 536870912, 0, 458744, 536870912, 0, 393229, 0, 2, 393230, 536870912, 65537, 393231, 536870912, 2, 393248, 536870912, 0, 524280, 536870912, 0, 458784, 536870912, 0, 589816, 536870912, 0, 524297, 0, 2, 524298, 0, 65537, 524299, 536870912, 2, 524320, 536870912, 0, 655352, 536870912, 0, 589831, 0, 2, 589832, 0, 0, 589833, 0, 0, 589834, 0, 65537, 589835, 0, 65537, 589836, 0, 65537, 589837, 536870912, 2, 589856, 536870912, 0, 720888, 536870912, 0, 720889, 0, 0, 720890, 0, 65537, 720891, 0, 0, 720892, 0, 65537, 720893, 0, 0, 720894, 0, 65537, 720895, 0, 0, 655360, 0, 65537, 655361, 0, 0, 655362, 0, 65537, 655363, 0, 0, 655364, 0, 65537, 655365, 0, 0, 655366, 0, 65537, 655367, 0, 0, 655368, 0, 65537, 655369, 0, 0, 655370, 0, 65537, 655371, 0, 0, 655372, 0, 65537, 655373, 0, 0, 655374, 0, 65537, 655375, 0, 0, 655376, 0, 65537, 655377, 0, 0, 655378, 0, 65537, 655379, 0, 0, 655380, 0, 65537, 655381, 0, 0, 655382, 0, 65537, 655383, 0, 0, 655384, 0, 65537, 655385, 0, 0, 655386, 0, 65537, 655387, 0, 0, 655388, 0, 65537, 655389, 0, 0, 655390, 0, 65537, 655391, 0, 0, 655392, 536870912, 0 )
 
-[node name="Node2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( 970, 460 )
+[node name="Node2D" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1770, 860 )
 
