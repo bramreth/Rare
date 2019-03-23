@@ -80,6 +80,8 @@ func collapse_buttons(button: Button):
 		buttons = options
 		select = 0
 		selector.silent_move(buttons[select])
+		
+		update_select()
 	
 	#quit
 	if button == buttons[2]:
@@ -110,6 +112,7 @@ func _on_options_back():
 	selector.silent_move(buttons[select])
 	
 	selector.reset()
+	update_select()
 
 func _deferred_goto_scene(path):
 	$background2.queue_free()
