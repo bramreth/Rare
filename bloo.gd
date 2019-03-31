@@ -9,6 +9,9 @@ var MAX_HEALTH = 100
 var current_health = 0
 onready var body = get_node("bloo")
 
+var punch_stream = preload("res://assets/punch.wav")
+var hit_stream = preload("res://assets/hit.wav")
+
 enum state{
 		IDLE,
 		FALL,
@@ -106,7 +109,8 @@ func pickup_collectible(id):
 	$bloo/Camera2D/CanvasLayer/ui/Label.text = str(acorns)
 
 func take_damage(val):
-	$AudioStreamPlayer2D.play()
+	$bloo/AudioStreamPlayer2D.set_stream(hit_stream)
+	$bloo/AudioStreamPlayer2D.play()
 	current_health -= val
 	$bloo/Camera2D/CanvasLayer/ui/health_bar/health_tween.interpolate_property($bloo/Camera2D/CanvasLayer/ui/health_bar, "value", $bloo/Camera2D/CanvasLayer/ui/health_bar.value, current_health, 0.1, Tween.TRANS_BACK, Tween.EASE_IN) 
 		
@@ -125,6 +129,8 @@ func _on_hitbox_body_entered(body):
 		state.PUNCH:
 			if "mob" in body.name:
 				body.take_damage(25)
+				$bloo/AudioStreamPlayer2D.set_stream(punch_stream)
+				$bloo/AudioStreamPlayer2D.play()
 		_:
 			if "mob" in body.name:
 				#the enmy has collided with us and dealt damage
