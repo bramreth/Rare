@@ -13,12 +13,14 @@ enum state{
 		IDLE,
 		FALL,
 		RUN,
-		PUNCH
+		PUNCH,
+		DEAD
 }
 var current_state = state.IDLE
 
 
 onready var collectibles = get_tree().get_nodes_in_group("collectible")
+onready var enemies = get_tree().get_nodes_in_group("enemy")
 """
 todo: add gain and lose momentum animations, basic attack, extra frames in existing anims, probably a walk versus run
 """
@@ -49,6 +51,7 @@ func _process(delta):
 				if Input.is_action_just_pressed("punch"):
 					current_state = state.PUNCH
 					$bloo/AnimatedSprite.play("punch")
+					$bloo/hitbox/CollisionShape2D.rotation_degrees = 90
 				if Input.is_action_pressed("move_left"):
 					if velocity.x > -1:
 						velocity.x -= 1
@@ -61,7 +64,8 @@ func _process(delta):
 					$bloo/AnimatedSprite.play("jump")
 					velocity.y = -65000
 					current_state = state.FALL
-				
+			state.DEAD:
+				return
 		#if jump is released cut the jump short
 		if Input.is_action_just_released("jump") and velocity.y < 0:
 			velocity.y = 0
@@ -91,6 +95,7 @@ func _process(delta):
 
 func _on_AnimatedSprite_animation_finished():
 	if $bloo/AnimatedSprite.animation == "fall" or $bloo/AnimatedSprite.animation == "punch":
+		$bloo/hitbox/CollisionShape2D.rotation_degrees = 0
 		current_state = state.IDLE
 		$bloo/AnimatedSprite.play("idle")
 
@@ -101,6 +106,7 @@ func pickup_collectible(id):
 	$bloo/Camera2D/CanvasLayer/ui/Label.text = str(acorns)
 
 func take_damage(val):
+	$AudioStreamPlayer2D.play()
 	current_health -= val
 	$bloo/Camera2D/CanvasLayer/ui/health_bar/health_tween.interpolate_property($bloo/Camera2D/CanvasLayer/ui/health_bar, "value", $bloo/Camera2D/CanvasLayer/ui/health_bar.value, current_health, 0.1, Tween.TRANS_BACK, Tween.EASE_IN) 
 		
@@ -108,13 +114,25 @@ func take_damage(val):
 	print(current_health)
 	if current_health <= 0:
 		print("you lose")
-		queue_free()
+		current_state = state.DEAD
+		$bloo/AnimatedSprite.animation = "die"
 	else:
 		$bloo/Camera2D/CanvasLayer/ui/health_bar.value = current_health
 	
 
 func _on_hitbox_body_entered(body):
+	match current_state:
+		state.PUNCH:
+			if "mob" in body.name:
+				body.take_damage(25)
+		_:
+			if "mob" in body.name:
+				#the enmy has collided with us and dealt damage
+				current_state = state.FALL
+				take_damage(25)
+
+
+func _on_attack_body_entered(body):
+	print(body.name)
 	if "mob" in body.name:
-		#the enmy has collided with us and dealt damage
-		current_state = state.FALL
-		take_damage(25)
+		body.take_damage(25)

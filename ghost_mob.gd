@@ -4,11 +4,15 @@ onready var tween = get_node("Tween")
 var left = true
 var velocity = Vector2(0,0)
 var speed = 10000
+var MAX_SPEED = 10000
 var direction = 1
 var Floor = Vector2(0,-1)
+var MAX_HEALTH = 50
+var current_health = 0
 
 func _ready():
 	walk()
+	current_health = MAX_HEALTH
 
 func walk():
 	if left:
@@ -36,6 +40,28 @@ func _process(delta):
 
 #hitbox entered by damage source
 func _on_Area2D_body_entered(body):
-	if "bloo" in body.name:
-		pass
-		#queue_free()
+	print(body.name)
+	#if "attack" in body.name:
+	#	queue_free()
+
+
+func _on_mob_take_damage(amount):
+	#queue_free()
+	current_health -= amount
+	if current_health <= 0:
+		$AnimationPlayer.play("die")
+		
+		$mob/Area2D.queue_free()
+		$mob/CollisionShape2D.queue_free()
+	else:
+		
+		$AnimationPlayer.play("damage")
+	speed = 0
+	left = not left
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if "damage" in anim_name:
+		speed = MAX_SPEED
+	if "die" in anim_name:
+		queue_free()
