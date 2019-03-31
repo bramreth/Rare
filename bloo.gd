@@ -5,7 +5,8 @@ var speed = Vector2(50000,1)
 var GRAVITY_VECTOR = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 var acorns = 0
-
+var MAX_HEALTH = 100
+var current_health = 0
 onready var body = get_node("bloo")
 
 enum state{
@@ -26,6 +27,8 @@ todo: add gain and lose momentum animations, basic attack, extra frames in exist
 func _ready():
 	for item in collectibles:
 		item.connect("collected", self, "pickup_collectible")
+		
+	current_health = MAX_HEALTH
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if delta > 0:
@@ -56,7 +59,7 @@ func _process(delta):
 						$bloo/AnimatedSprite.flip_h = false
 				if Input.is_action_pressed("jump"):
 					$bloo/AnimatedSprite.play("jump")
-					velocity.y = -60000
+					velocity.y = -65000
 					current_state = state.FALL
 				
 		#if jump is released cut the jump short
@@ -96,3 +99,22 @@ func pickup_collectible(id):
 	print(id.name)
 	acorns += 1
 	$bloo/Camera2D/CanvasLayer/ui/Label.text = str(acorns)
+
+func take_damage(val):
+	current_health -= val
+	$bloo/Camera2D/CanvasLayer/ui/health_bar/health_tween.interpolate_property($bloo/Camera2D/CanvasLayer/ui/health_bar, "value", $bloo/Camera2D/CanvasLayer/ui/health_bar.value, current_health, 0.1, Tween.TRANS_BACK, Tween.EASE_IN) 
+		
+	$bloo/Camera2D/CanvasLayer/ui/health_bar/health_tween.start()
+	print(current_health)
+	if current_health <= 0:
+		print("you lose")
+		queue_free()
+	else:
+		$bloo/Camera2D/CanvasLayer/ui/health_bar.value = current_health
+	
+
+func _on_hitbox_body_entered(body):
+	if "mob" in body.name:
+		#the enmy has collided with us and dealt damage
+		current_state = state.FALL
+		take_damage(25)

@@ -12,10 +12,10 @@ func _ready():
 
 func walk():
 	if left:
-		tween.interpolate_property($RigidBody2D, "rotation_degrees", $RigidBody2D.rotation_degrees,  -10, 0.5,Tween.TRANS_LINEAR, Tween.EASE_IN)
+		tween.interpolate_property($mob, "rotation_degrees", $mob.rotation_degrees,  -20, 0.5,Tween.TRANS_LINEAR, Tween.EASE_IN)
 		left = not left
 	else:
-		tween.interpolate_property($RigidBody2D, "rotation_degrees", $RigidBody2D.rotation_degrees,  10, 0.5,Tween.TRANS_LINEAR, Tween.EASE_IN)
+		tween.interpolate_property($mob, "rotation_degrees", $mob.rotation_degrees,  20, 0.5,Tween.TRANS_LINEAR, Tween.EASE_IN)
 		left = not left
 	tween.start()
 
@@ -23,13 +23,19 @@ func _on_Tween_tween_completed(object, key):
 	walk()
 
 func _process(delta):
-	velocity.x = speed * direction * delta
-	$RigidBody2D.move_and_slide(velocity, Floor)
+	velocity.x = speed * direction * delta 
+	$mob.move_and_slide(velocity, Floor)
 	
 	if direction == 1:
-		$RigidBody2D/AnimatedSprite.flip_h = true
+		$mob/AnimatedSprite.flip_h = true
 	else:
-		$RigidBody2D/AnimatedSprite.flip_h = false
+		$mob/AnimatedSprite.flip_h = false
 		
-	if $RigidBody2D.is_on_wall():
+	if $mob.is_on_wall():
 		direction *= -1
+
+#hitbox entered by damage source
+func _on_Area2D_body_entered(body):
+	if "bloo" in body.name:
+		pass
+		#queue_free()

@@ -1,26 +1,26 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://bloo.gd" type="Script" id=1]
 [ext_resource path="res://bloo_idle_1.png" type="Texture" id=2]
 [ext_resource path="res://assets/bloo_idle_3_v2.png" type="Texture" id=3]
 [ext_resource path="res://assets/bloo_idle_1_v2.png" type="Texture" id=4]
 [ext_resource path="res://assets/bloo_idle_2_v2.png" type="Texture" id=5]
-[ext_resource path="res://assets/bloo_run_1.png" type="Texture" id=6]
-[ext_resource path="res://assets/bloo_run_2.png" type="Texture" id=7]
-[ext_resource path="res://assets/bloo_run_5.png" type="Texture" id=8]
-[ext_resource path="res://assets/bloo_run_3.png" type="Texture" id=9]
-[ext_resource path="res://assets/bloo_run_4.png" type="Texture" id=10]
-[ext_resource path="res://assets/bloo_run_6.png" type="Texture" id=11]
-[ext_resource path="res://assets/attack_1.png" type="Texture" id=12]
-[ext_resource path="res://assets/attack_3.png" type="Texture" id=13]
-[ext_resource path="res://assets/attack_4.png" type="Texture" id=14]
-[ext_resource path="res://assets/attack_2.png" type="Texture" id=15]
-[ext_resource path="res://assets/attack_5.png" type="Texture" id=16]
-[ext_resource path="res://assets/bloo_jump_1.png" type="Texture" id=17]
-[ext_resource path="res://assets/bloo_jump_2.png" type="Texture" id=18]
-[ext_resource path="res://assets/bloo_jump_3.png" type="Texture" id=19]
-[ext_resource path="res://assets/bloo_jump_4.png" type="Texture" id=20]
-[ext_resource path="res://assets/bloo_jump_5.png" type="Texture" id=21]
+[ext_resource path="res://assets/bloo_jump_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/bloo_jump_2.png" type="Texture" id=7]
+[ext_resource path="res://assets/bloo_jump_3.png" type="Texture" id=8]
+[ext_resource path="res://assets/bloo_jump_4.png" type="Texture" id=9]
+[ext_resource path="res://assets/bloo_jump_5.png" type="Texture" id=10]
+[ext_resource path="res://assets/bloo_run_1.png" type="Texture" id=11]
+[ext_resource path="res://assets/bloo_run_2.png" type="Texture" id=12]
+[ext_resource path="res://assets/bloo_run_5.png" type="Texture" id=13]
+[ext_resource path="res://assets/bloo_run_3.png" type="Texture" id=14]
+[ext_resource path="res://assets/bloo_run_4.png" type="Texture" id=15]
+[ext_resource path="res://assets/bloo_run_6.png" type="Texture" id=16]
+[ext_resource path="res://assets/attack_1.png" type="Texture" id=17]
+[ext_resource path="res://assets/attack_3.png" type="Texture" id=18]
+[ext_resource path="res://assets/attack_4.png" type="Texture" id=19]
+[ext_resource path="res://assets/attack_2.png" type="Texture" id=20]
+[ext_resource path="res://assets/attack_5.png" type="Texture" id=21]
 [ext_resource path="res://assets/default_theme.tres" type="Theme" id=22]
 [ext_resource path="res://assets/acorn.png" type="Texture" id=23]
 
@@ -31,30 +31,33 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "run",
-"speed": 10.0
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "jump",
+"speed": 20.0
 }, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
-"loop": true,
-"name": "punch",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 17 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ) ],
 "loop": false,
 "name": "fall",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 20 ) ],
-"loop": false,
-"name": "jump",
-"speed": 20.0
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "punch",
+"speed": 12.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 39.1468
-height = 119.099
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 13.2668, 89.9754 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 47.075
+height = 132.439
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -72,9 +75,12 @@ position = Vector2( 3.25806, 6.51607 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
 animation = "idle"
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bloo"]
+position = Vector2( -1.26053, 5.67226 )
+scale = Vector2( 2.36068, 1.07981 )
 shape = SubResource( 2 )
 
 [node name="ground_detection" type="RayCast2D" parent="bloo"]
@@ -92,7 +98,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 22 )
 
-[node name="TextureRect" type="TextureRect" parent="bloo/Camera2D/CanvasLayer/ui"]
+[node name="acorn" type="TextureRect" parent="bloo/Camera2D/CanvasLayer/ui"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -123.758
@@ -111,4 +117,21 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "0"
 
+[node name="health_bar" type="ProgressBar" parent="bloo/Camera2D/CanvasLayer/ui"]
+margin_right = 221.0
+margin_bottom = 20.0
+step = 1.0
+value = 100.0
+rounded = true
+percent_visible = false
+
+[node name="health_tween" type="Tween" parent="bloo/Camera2D/CanvasLayer/ui/health_bar"]
+
+[node name="hitbox" type="Area2D" parent="bloo"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bloo/hitbox"]
+position = Vector2( -1.2605, 6.30251 )
+shape = SubResource( 3 )
+
 [connection signal="animation_finished" from="bloo/AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="body_entered" from="bloo/hitbox" to="." method="_on_hitbox_body_entered"]
