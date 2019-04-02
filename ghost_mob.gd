@@ -50,8 +50,6 @@ func _on_mob_take_damage(amount):
 	current_health -= amount
 	if current_health <= 0:
 		$AnimationPlayer.play("die")
-		
-		$mob/Area2D.queue_free()
 		$mob/CollisionShape2D.queue_free()
 	else:
 		

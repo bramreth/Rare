@@ -127,6 +127,7 @@ func take_damage(val):
 func _on_hitbox_body_entered(body):
 	match current_state:
 		state.PUNCH:
+			print(body.name)
 			if "mob" in body.name:
 				body.take_damage(25)
 				$bloo/AudioStreamPlayer2D.set_stream(punch_stream)
