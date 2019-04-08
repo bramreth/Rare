@@ -54,7 +54,8 @@ punch={
 
 [physics]
 
-2d/default_gravity=2000
+2d/default_gravity=60
+2d/default_gravity_vector=Vector2( 0, -1 )
 
 [rendering]
 

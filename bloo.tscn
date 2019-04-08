@@ -1,32 +1,34 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://bloo.gd" type="Script" id=1]
 [ext_resource path="res://assets/bloo_idle_3_v2.png" type="Texture" id=2]
 [ext_resource path="res://assets/bloo_idle_1_v2.png" type="Texture" id=3]
 [ext_resource path="res://assets/bloo_idle_2_v2.png" type="Texture" id=4]
-[ext_resource path="res://assets/bloo_die_1.png" type="Texture" id=5]
-[ext_resource path="res://assets/bloo_die_2.png" type="Texture" id=6]
-[ext_resource path="res://assets/bloo_die_3.png" type="Texture" id=7]
-[ext_resource path="res://assets/bloo_die_4.png" type="Texture" id=8]
-[ext_resource path="res://assets/attack_1.png" type="Texture" id=9]
-[ext_resource path="res://assets/attack_3.png" type="Texture" id=10]
-[ext_resource path="res://assets/attack_4.png" type="Texture" id=11]
-[ext_resource path="res://assets/attack_2.png" type="Texture" id=12]
-[ext_resource path="res://assets/attack_5.png" type="Texture" id=13]
-[ext_resource path="res://assets/bloo_jump_1.png" type="Texture" id=14]
-[ext_resource path="res://assets/bloo_jump_2.png" type="Texture" id=15]
-[ext_resource path="res://assets/bloo_run_1.png" type="Texture" id=16]
-[ext_resource path="res://assets/bloo_run_2.png" type="Texture" id=17]
-[ext_resource path="res://assets/bloo_run_5.png" type="Texture" id=18]
-[ext_resource path="res://assets/bloo_run_3.png" type="Texture" id=19]
-[ext_resource path="res://assets/bloo_run_4.png" type="Texture" id=20]
-[ext_resource path="res://assets/bloo_run_6.png" type="Texture" id=21]
-[ext_resource path="res://assets/bloo_jump_3.png" type="Texture" id=22]
-[ext_resource path="res://assets/bloo_jump_4.png" type="Texture" id=23]
-[ext_resource path="res://assets/bloo_jump_5.png" type="Texture" id=24]
+[ext_resource path="res://assets/bloo_run_1.png" type="Texture" id=5]
+[ext_resource path="res://assets/bloo_run_2.png" type="Texture" id=6]
+[ext_resource path="res://assets/bloo_run_5.png" type="Texture" id=7]
+[ext_resource path="res://assets/bloo_run_3.png" type="Texture" id=8]
+[ext_resource path="res://assets/bloo_run_4.png" type="Texture" id=9]
+[ext_resource path="res://assets/bloo_run_6.png" type="Texture" id=10]
+[ext_resource path="res://assets/bloo_jump_1.png" type="Texture" id=11]
+[ext_resource path="res://assets/bloo_jump_2.png" type="Texture" id=12]
+[ext_resource path="res://assets/bloo_jump_3.png" type="Texture" id=13]
+[ext_resource path="res://assets/bloo_jump_4.png" type="Texture" id=14]
+[ext_resource path="res://assets/bloo_jump_5.png" type="Texture" id=15]
+[ext_resource path="res://assets/attack_1.png" type="Texture" id=16]
+[ext_resource path="res://assets/attack_3.png" type="Texture" id=17]
+[ext_resource path="res://assets/attack_4.png" type="Texture" id=18]
+[ext_resource path="res://assets/attack_2.png" type="Texture" id=19]
+[ext_resource path="res://assets/attack_5.png" type="Texture" id=20]
+[ext_resource path="res://assets/bloo_die_1.png" type="Texture" id=21]
+[ext_resource path="res://assets/bloo_die_2.png" type="Texture" id=22]
+[ext_resource path="res://assets/bloo_die_3.png" type="Texture" id=23]
+[ext_resource path="res://assets/bloo_die_4.png" type="Texture" id=24]
 [ext_resource path="res://assets/default_theme.tres" type="Theme" id=25]
 [ext_resource path="res://assets/acorn.png" type="Texture" id=26]
-[ext_resource path="res://assets/hit.wav" type="AudioStream" id=27]
+[ext_resource path="res://title_font.tres" type="DynamicFont" id=27]
+[ext_resource path="res://selector.tscn" type="PackedScene" id=28]
+[ext_resource path="res://assets/hit.wav" type="AudioStream" id=29]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -35,41 +37,90 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
-"loop": false,
-"name": "die",
-"speed": 5.0
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "run",
+"speed": 12.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "jump",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
 "loop": true,
 "name": "punch",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 14 ) ],
+"frames": [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ],
+"loop": false,
+"name": "die",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": false,
 "name": "fall",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "run",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "jump",
 "speed": 20.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 13.2668, 89.9754 )
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="Animation" id=3]
+resource_name = "fade_out"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.4, 0.4, 0.4, 0 ), Color( 0.4, 0.4, 0.4, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "game_over"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.4, 0.4, 0.4, 0 ), Color( 0.4, 0.4, 0.4, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("game_over_menu:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -800 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=5]
 radius = 45.0
 height = 132.439
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
+MAX_SPEED = 900
+drag = 50.0
+JUMP_HEIGHT = 1400
+acceleration = 100
+deccelatation = 200
 
 [node name="bloo" type="KinematicBody2D" parent="."]
 
@@ -87,7 +138,7 @@ scale = Vector2( 2.36068, 1.07981 )
 shape = SubResource( 2 )
 
 [node name="ground_detection" type="RayCast2D" parent="bloo"]
-position = Vector2( 1.04724, 100 )
+position = Vector2( 0, 100 )
 enabled = true
 cast_to = Vector2( 0, 5 )
 
@@ -133,14 +184,72 @@ percent_visible = false
 
 [node name="health_tween" type="Tween" parent="bloo/Camera2D/CanvasLayer/ui/health_bar"]
 
+[node name="transition_screen" type="Control" parent="bloo/Camera2D/CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 25 )
+
+[node name="filter" type="ColorRect" parent="bloo/Camera2D/CanvasLayer/transition_screen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.4, 0.4, 0.4, 0 )
+
+[node name="game_over_menu" type="Control" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -798.631
+margin_bottom = -798.631
+
+[node name="Label" type="Label" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -184.5
+margin_top = -170.0
+margin_right = 184.5
+margin_bottom = -112.0
+custom_fonts/font = ExtResource( 27 )
+text = "game over"
+
+[node name="MarginContainer" type="MarginContainer" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 400.0
+margin_top = 200.0
+margin_right = -400.0
+margin_bottom = -100.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu/MarginContainer"]
+editor/display_folded = true
+margin_right = 224.0
+margin_bottom = 300.0
+
+[node name="Button" type="Button" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu/MarginContainer/VBoxContainer"]
+margin_right = 224.0
+margin_bottom = 28.0
+text = "restart"
+
+[node name="Button2" type="Button" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu/MarginContainer/VBoxContainer"]
+margin_top = 32.0
+margin_right = 224.0
+margin_bottom = 60.0
+text = "quit"
+
+[node name="selector" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu/MarginContainer/VBoxContainer" instance=ExtResource( 28 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter"]
+anims/fade_out = SubResource( 3 )
+anims/game_over = SubResource( 4 )
+
 [node name="hitbox" type="Area2D" parent="bloo"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bloo/hitbox"]
 position = Vector2( -1.2605, 6.30251 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="bloo"]
-stream = ExtResource( 27 )
+stream = ExtResource( 29 )
 
 [connection signal="animation_finished" from="bloo/AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="body_entered" from="bloo/hitbox" to="." method="_on_hitbox_body_entered"]
