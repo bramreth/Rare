@@ -13,7 +13,6 @@ export (int) var deccelatation = 300
 var current_health = 0
 var direction = 0
 onready var body = get_node("bloo")
-var strength = 0
 
 var punch_stream = preload("res://assets/punch.wav")
 var hit_stream = preload("res://assets/hit.wav")
@@ -44,17 +43,12 @@ func _ready():
 func _process(delta):
 	direction = 0
 	if delta > 0:
-		if Input.is_action_pressed("move_left"):
-			if direction > -1:
-				direction -= 1
+		direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+		if direction < 0:
 				$bloo/AnimatedSprite.flip_h = true
-				strength = Input.get_action_strength("move_left")
-		if Input.is_action_pressed("move_right"):
-			if direction < 1:
-				direction += 1
-				$bloo/AnimatedSprite.flip_h = false
+		else:
+			$bloo/AnimatedSprite.flip_h = false
 				
-				strength = Input.get_action_strength("move_right")
 		
 		match current_state:
 			state.FALL:
@@ -105,9 +99,9 @@ func handle_physics(direction):
 	if abs(velocity.x) < MAX_SPEED:
 		
 		if sign(direction) == sign(velocity.x):
-			velocity.x += direction * acceleration * clamp(strength, 0.6, 1)
+			velocity.x += direction * acceleration
 		else:
-			velocity.x += direction * deccelatation * clamp(strength, 0.6, 1)
+			velocity.x += direction * deccelatation
 	#drag
 	if abs(velocity.x) < drag:
 		velocity.x = 0
