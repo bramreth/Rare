@@ -60,7 +60,7 @@ func _process(delta):
 			state.IDLE:
 				if Input.is_action_just_pressed("punch"):
 					current_state = state.PUNCH
-					$bloo/AnimatedSprite.play("punch")
+					$bloo/AnimatedSprite/atk_anim/AnimatedSprite2/ATK_PLAYER.play("atk1")
 					$bloo/hitbox/CollisionShape2D.rotation_degrees = 90
 				if Input.is_action_pressed("jump"):
 					$bloo/AnimatedSprite.play("jump")
@@ -69,8 +69,7 @@ func _process(delta):
 			state.DEAD:
 				return
 				
-		if not (current_state == state.FALL or $bloo/AnimatedSprite.animation == "fall"
-		or $bloo/AnimatedSprite.animation == "punch"):
+		if not (current_state == state.FALL or $bloo/AnimatedSprite.animation == "fall" or $bloo/AnimatedSprite/atk_anim/AnimatedSprite2.animation == "atk1"):
 			if velocity.x:
 				$bloo/AnimatedSprite.play("run")
 			else:
@@ -110,7 +109,7 @@ func handle_physics(direction):
 	
 
 func _on_AnimatedSprite_animation_finished():
-	if $bloo/AnimatedSprite.animation == "fall" or $bloo/AnimatedSprite.animation == "punch":
+	if $bloo/AnimatedSprite.animation == "fall" or $bloo/AnimatedSprite/atk_anim/AnimatedSprite2.animation == "prefab":
 		$bloo/hitbox/CollisionShape2D.rotation_degrees = 0
 		current_state = state.IDLE
 		$bloo/AnimatedSprite.play("idle")
@@ -162,3 +161,11 @@ func death():
 	current_state = state.DEAD
 	$bloo/AnimatedSprite.animation = "die"
 	$bloo/Camera2D/CanvasLayer/transition_screen/filter/AnimationPlayer.play("game_over")
+
+
+func _on_AnimatedSprite2_animation_finished():
+	print("fin atk")
+	if $bloo/AnimatedSprite.animation == "fall" or $bloo/AnimatedSprite/atk_anim/AnimatedSprite2.animation == "prefab":
+		$bloo/hitbox/CollisionShape2D.rotation_degrees = 0
+		current_state = state.IDLE
+		$bloo/AnimatedSprite.play("idle")
