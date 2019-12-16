@@ -60,7 +60,7 @@ func _process(delta):
 			state.IDLE:
 				if Input.is_action_just_pressed("punch"):
 					current_state = state.PUNCH
-					$bloo/AnimatedSprite/atk_anim/AnimatedSprite2/ATK_PLAYER.play("atk1")
+					$bloo/AnimatedSprite/atk_anim/AnimatedSprite2/ATK_PLAYER.play("atk1_1")
 					$bloo/hitbox/CollisionShape2D.rotation_degrees = 90
 				if Input.is_action_pressed("jump"):
 					$bloo/AnimatedSprite.play("jump")
@@ -169,3 +169,60 @@ func _on_AnimatedSprite2_animation_finished():
 		$bloo/hitbox/CollisionShape2D.rotation_degrees = 0
 		current_state = state.IDLE
 		$bloo/AnimatedSprite.play("idle")
+		
+		
+"""
+a lot of guts need to be ripped out here if I'm going to make this work.
+
+I need to create an input queue for attacks
+
+this needs to be handled before I focus too much on animations.
+step 1, poll attack inputs.
+this is going to be a finite state machine I am going to need to map out.
+so let's think about my attacks:
+	x = punch
+	y = kick
+	
+my first chain will be punch kick punch
+
+after punch store it in a list of the current chain.
+when the animation times out empty the chain
+if another input is recieved and it is a valid transition, queue it.
+
+then when the current animation finishes play that animation 
+
+it would be nice to figure out pre-emptively starting the next attack if it is safe
+(within safety bounds of the previous attack)
+
+for each phase I need to predefine attack checks. 
+let's use raycasts for each
+
+setup raycast in antmation, check if there is a first colliusion with an enemy? and send
+ off a hit signal with the damage for that part of the combo
+
+bitterblossom = [punch, kick, punch]
+chain = []
+current_index
+if input = x:
+	chain.append(punch)
+elif input = y:
+	chain.append(kick)
+	
+if chain invalid:
+	curent_index +=1
+	if chain.len() >= current_index
+		play_anim(chain, current_index)
+	else
+		chain.empty
+		current_index = 0
+	
+spritesheet.timeout:
+	chain.empty()
+	
+check_chain(chain_in):
+	return chain_in in chain_list [[p],[p,k],[p,k,p]]
+	
+play_anim(chain, current_index)
+	lookup the animation to play for this part, lots of these willneed hardcoding as the position the player...
+
+"""
