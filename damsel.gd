@@ -7,9 +7,9 @@ var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 export (float) var drag = 0.05
 var acorns = 0
 export (int) var MAX_HEALTH = 100
-export (int) var JUMP_HEIGHT = 1500
-export (int) var acceleration = 200
-export (int) var deccelatation = 300
+export (int) var JUMP_HEIGHT = 1000
+export (int) var acceleration = 100
+export (int) var deccelatation = 400
 var current_health = 0
 var direction = 0
 onready var body = get_node("bloo")
@@ -21,7 +21,7 @@ enum state{
 		IDLE,
 		FALL,
 		RUN,
-		PUNCH,
+		ATTACK,
 		DEAD
 }
 var current_state = state.IDLE
@@ -39,55 +39,77 @@ func _ready():
 		item.connect("collected", self, "pickup_collectible")
 		
 	current_health = MAX_HEALTH
+	
+func get_direction():
+	direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	if direction == 0:
+		#direction unchanged
+		pass
+	elif direction < 0:
+		$bloo/atk_anim.scale.x = -0.3
+		$bloo/atk_anim.position.x = -abs($bloo/atk_anim.position.x)
+	else:
+		$bloo/atk_anim.scale.x = 0.3
+		$bloo/atk_anim.position.x = abs($bloo/atk_anim.position.x)
+	return direction
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	direction = 0
-	if delta > 0:
-		direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-		if direction < 0:
-				$bloo/AnimatedSprite.flip_h = true
-		else:
-			$bloo/AnimatedSprite.flip_h = false
-				
-		
-		match current_state:
-			state.FALL:
-				#if jump is released cut the jump short
-				if Input.is_action_just_released("jump") and velocity.y < 0:
-					velocity.y *= 0.2
-					#velocity.x -=sign(velocity.x) * MAX_SPEED * drag
-				velocity.y += GRAVITY
-			state.IDLE:
-				if Input.is_action_just_pressed("punch"):
-					current_state = state.PUNCH
-					$bloo/AnimatedSprite/atk_anim/AnimatedSprite2/ATK_PLAYER.play("atk1_1")
-					$bloo/hitbox/CollisionShape2D.rotation_degrees = 90
-				if Input.is_action_pressed("jump"):
-					$bloo/AnimatedSprite.play("jump")
-					velocity.y = -JUMP_HEIGHT
-					current_state = state.FALL
-			state.DEAD:
-				return
-				
-		if not (current_state == state.FALL or $bloo/AnimatedSprite.animation == "fall" or $bloo/AnimatedSprite/atk_anim/AnimatedSprite2.animation == "atk1"):
-			if velocity.x:
-				$bloo/AnimatedSprite.play("run")
-			else:
-				$bloo/AnimatedSprite.play("idle")
-				
-		handle_physics(direction)
-		match current_state:
-			state.FALL:
-				velocity = body.move_and_slide(velocity, GRAVITY_VECTOR)
-			_:
-				velocity = body.move_and_slide_with_snap(velocity, GRAVITY_VECTOR, Vector2(0, 32))
-		if $bloo/ground_detection.is_colliding():
-			if current_state == state.FALL:
-				#velocity.y = 0
+	
+	match current_state:
+		state.FALL:
+			direction = get_direction()
+			#if jump is released cut the jump short
+			if Input.is_action_just_released("jump") and velocity.y < 0:
+				velocity.y *= 0.2
+				#velocity.x -=sign(velocity.x) * MAX_SPEED * drag
+			velocity.y += GRAVITY
+			if $bloo/ground_detection.is_colliding():
 				current_state = state.IDLE
-				$bloo/AnimatedSprite.play("fall")
+			
+		state.IDLE:
+			direction = get_direction()
+			if Input.is_action_just_pressed("punch"):
+				current_state = state.ATTACK
+				$bloo/atk_anim.punch()
+			if Input.is_action_just_pressed("kick"):
+				current_state = state.ATTACK
+				$bloo/atk_anim.kick()
+			if Input.is_action_pressed("jump"):
+#					#play a jump anim
+				velocity.y = -JUMP_HEIGHT
+				current_state = state.FALL
+				
+		state.ATTACK:
+			if Input.is_action_just_pressed("punch"):
+				current_state = state.ATTACK
+				$bloo/atk_anim.punch()
+			if Input.is_action_just_pressed("kick"):
+				current_state = state.ATTACK
+				$bloo/atk_anim.kick()
+			
+		state.DEAD:
+			return
+			
+	if not (current_state == state.FALL):
+		# or attacking
+		if velocity.x:
+			current_state == state.RUN
+			#run anim
 		else:
-			current_state = state.FALL
+			#idle naim
+			current_state == state.IDLE
+			
+	handle_physics(direction)
+	
+	match current_state:
+		state.FALL:
+			velocity = body.move_and_slide(velocity, GRAVITY_VECTOR)
+		_:
+			velocity = body.move_and_slide_with_snap(velocity, GRAVITY_VECTOR, Vector2(0, 32))
+			
+	if not $bloo/ground_detection.is_colliding():
+		current_state = state.FALL
 
 """
 this is where all the logic for the momentum occurs.
@@ -107,12 +129,9 @@ func handle_physics(direction):
 	else:
 		velocity.x -= sign(velocity.x) * drag
 	
-
-func _on_AnimatedSprite_animation_finished():
-	if $bloo/AnimatedSprite.animation == "fall" or $bloo/AnimatedSprite/atk_anim/AnimatedSprite2.animation == "prefab":
-		$bloo/hitbox/CollisionShape2D.rotation_degrees = 0
-		current_state = state.IDLE
-		$bloo/AnimatedSprite.play("idle")
+	if not direction:
+		velocity.x *= 0.8
+	print(direction)
 
 func pickup_collectible(id):
 	print(id)
@@ -132,23 +151,6 @@ func take_damage(val):
 		death()
 	else:
 		$bloo/Camera2D/CanvasLayer/ui/health_bar.value = current_health
-	
-
-func _on_hitbox_body_entered(body):
-	match current_state:
-		state.DEAD:
-			pass
-		state.PUNCH:
-			print(body.name)
-			if "mob" in body.name:
-				body.take_damage(25)
-				$bloo/AudioStreamPlayer2D.set_stream(punch_stream)
-				$bloo/AudioStreamPlayer2D.play()
-		_:
-			if "mob" in body.name:
-				#the enmy has collided with us and dealt damage
-				current_state = state.FALL
-				take_damage(25)
 
 
 func _on_attack_body_entered(body):
@@ -159,18 +161,13 @@ func _on_attack_body_entered(body):
 func death():
 	print("you lose")
 	current_state = state.DEAD
-	$bloo/AnimatedSprite.animation = "die"
+#	$bloo/AnimatedSprite.animation = "die"
+# play death animation
 	$bloo/Camera2D/CanvasLayer/transition_screen/filter/AnimationPlayer.play("game_over")
 
-
-func _on_AnimatedSprite2_animation_finished():
-	print("fin atk")
-	if $bloo/AnimatedSprite.animation == "fall" or $bloo/AnimatedSprite/atk_anim/AnimatedSprite2.animation == "prefab":
-		$bloo/hitbox/CollisionShape2D.rotation_degrees = 0
-		current_state = state.IDLE
-		$bloo/AnimatedSprite.play("idle")
-		
-		
+func _on_atk_anim_end_of_chain():
+	current_state = state.IDLE
+	
 """
 a lot of guts need to be ripped out here if I'm going to make this work.
 
@@ -226,3 +223,5 @@ play_anim(chain, current_index)
 	lookup the animation to play for this part, lots of these willneed hardcoding as the position the player...
 
 """
+
+

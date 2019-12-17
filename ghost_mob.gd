@@ -7,7 +7,7 @@ var speed = 10000
 var MAX_SPEED = 10000
 var direction = 1
 var Floor = Vector2(0,-1)
-var MAX_HEALTH = 50
+var MAX_HEALTH = 75
 var current_health = 0
 
 func _ready():
@@ -50,7 +50,7 @@ func _on_mob_take_damage(amount):
 	current_health -= amount
 	if current_health <= 0:
 		$AnimationPlayer.play("die")
-		$mob/CollisionShape2D.queue_free()
+		$mob/mob_collision.queue_free()
 	else:
 		
 		$AnimationPlayer.play("damage")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://attacker.gd" type="Script" id=1]
 [ext_resource path="res://assets/Key_frames.png" type="Texture" id=2]
@@ -20,6 +20,10 @@
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.00230947 )
 colors = PoolColorArray( 0.827451, 1, 0, 1, 1, 1, 1, 1 )
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 5.0
+height = 60.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -150,6 +154,30 @@ tracks/8/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ PoolVector2Array( -40, 0, 0, 0 ), PoolVector2Array( -40, 0, 0, 0 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../attack_slash/Area2D/CollisionShape2D:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("KinematicBody2D/CollisionShape2D:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -700, 300 ), Vector2( -700, 300 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -365,6 +393,54 @@ tracks/11/keys = {
 "update": 1,
 "values": [ PoolColorArray( 0, 0.972549, 1, 1, 1, 1, 1, 1 ), PoolColorArray( 0, 0.972549, 1, 1, 1, 1, 1, 1 ) ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("../attack_slash/Area2D/CollisionShape2D:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0.35 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -29.6609, -0.156616 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("../attack_slash/Area2D/CollisionShape2D:shape:height")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0.35 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 60.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("../attack_slash/Area2D/CollisionShape2D:disabled")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 0.35, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("KinematicBody2D/CollisionShape2D:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 0.2, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -800, 300 ), Vector2( -600, 300 ), Vector2( -300, 300 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "atk1_3"
@@ -579,14 +655,50 @@ tracks/11/keys = {
 "update": 1,
 "values": [ PoolColorArray( 0.827451, 1, 0, 1, 1, 1, 1, 1 ), PoolColorArray( 0.827451, 1, 0, 1, 1, 1, 1, 1 ) ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("../attack_slash/Area2D/CollisionShape2D:disabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 0.4, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("KinematicBody2D/CollisionShape2D:shape:extents")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 400, 400 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("KinematicBody2D/CollisionShape2D:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -300.082, 300 ), Vector2( 100, 300 ), Vector2( 350, 300 ), Vector2( 0, 300 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 400, 400 )
 
 [node name="atk_anim" type="Node2D"]
-position = Vector2( 380.942, 314.078 )
-scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 1 )
 
 [node name="rest" type="Sprite" parent="."]
-visible = false
 position = Vector2( -346.223, 101.902 )
 scale = Vector2( 0.45, 0.45 )
 texture = ExtResource( 2 )
@@ -603,13 +715,24 @@ texture_mode = -1392464896
 begin_cap_mode = 2
 end_cap_mode = 1
 
+[node name="Area2D" type="Area2D" parent="attack_slash"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_slash/Area2D"]
+position = Vector2( -29.6609, -0.156616 )
+rotation = 1.5708
+scale = Vector2( 1, 1 )
+shape = SubResource( 8 )
+disabled = true
+
 [node name="nippy" type="Sprite" parent="."]
 visible = false
 position = Vector2( -466.018, 148.176 )
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 3 )
+offset = Vector2( 0, 450 )
 
 [node name="attack_sprites" type="AnimatedSprite" parent="."]
+visible = false
 scale = Vector2( 0.6, 0.6 )
 frames = SubResource( 2 )
 animation = "prefab"
@@ -623,9 +746,19 @@ anims/atk1_2_2 = SubResource( 6 )
 anims/atk1_3 = SubResource( 5 )
 anims/atk1_3_2 = SubResource( 7 )
 
+[node name="KinematicBody2D" type="KinematicBody2D" parent="attack_sprites"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_sprites/KinematicBody2D"]
+position = Vector2( 0, 300 )
+shape = SubResource( 9 )
+disabled = true
+one_way_collision = true
+
 [node name="sympathy_timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
+[connection signal="area_entered" from="attack_slash/Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="body_entered" from="attack_slash/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="animation_finished" from="attack_sprites/ATK_PLAYER" to="." method="_animation_finished"]
 [connection signal="timeout" from="sympathy_timer" to="." method="_on_sympathy_timer_timeout"]

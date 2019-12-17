@@ -76,10 +76,10 @@ script = ExtResource( 2 )
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
 animation = "ghost"
-frame = 2
+frame = 1
 playing = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="mob"]
+[node name="mob_collision" type="CollisionShape2D" parent="mob"]
 shape = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]

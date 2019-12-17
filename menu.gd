@@ -125,7 +125,7 @@ func _deferred_goto_scene(path):
 
     # Instance the new scene.
 	current_scene = s.instance()
-	var player = ResourceLoader.load("Bloo.tscn")
+	var player = ResourceLoader.load("damsel.tscn")
     # Add it to the active scene, as child of root.
 	get_tree().get_root().add_child(current_scene)
 	current_scene.get_node("spawn").add_child(player.instance())
