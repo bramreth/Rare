@@ -1,151 +1,18 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://damsel.gd" type="Script" id=1]
-[ext_resource path="res://assets/bloo_idle_3_v2.png" type="Texture" id=2]
-[ext_resource path="res://assets/bloo_idle_1_v2.png" type="Texture" id=3]
-[ext_resource path="res://assets/bloo_idle_2_v2.png" type="Texture" id=4]
-[ext_resource path="res://assets/bloo_jump_1.png" type="Texture" id=5]
-[ext_resource path="res://assets/bloo_jump_2.png" type="Texture" id=6]
-[ext_resource path="res://assets/attack_1.png" type="Texture" id=7]
-[ext_resource path="res://assets/attack_3.png" type="Texture" id=8]
-[ext_resource path="res://assets/attack_4.png" type="Texture" id=9]
-[ext_resource path="res://assets/attack_2.png" type="Texture" id=10]
-[ext_resource path="res://assets/attack_5.png" type="Texture" id=11]
-[ext_resource path="res://assets/bloo_run_1.png" type="Texture" id=12]
-[ext_resource path="res://assets/bloo_run_2.png" type="Texture" id=13]
-[ext_resource path="res://assets/bloo_run_5.png" type="Texture" id=14]
-[ext_resource path="res://assets/bloo_run_3.png" type="Texture" id=15]
-[ext_resource path="res://assets/bloo_run_4.png" type="Texture" id=16]
-[ext_resource path="res://assets/bloo_run_6.png" type="Texture" id=17]
-[ext_resource path="res://assets/bloo_die_1.png" type="Texture" id=18]
-[ext_resource path="res://assets/bloo_die_2.png" type="Texture" id=19]
-[ext_resource path="res://assets/bloo_die_3.png" type="Texture" id=20]
-[ext_resource path="res://assets/bloo_die_4.png" type="Texture" id=21]
-[ext_resource path="res://assets/bloo_jump_3.png" type="Texture" id=22]
-[ext_resource path="res://assets/bloo_jump_4.png" type="Texture" id=23]
-[ext_resource path="res://assets/bloo_jump_5.png" type="Texture" id=24]
-[ext_resource path="res://assets/atk_1_1/nippy.PNG" type="Texture" id=25]
-[ext_resource path="res://assets/Key_frames.png" type="Texture" id=26]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-1.png" type="Texture" id=27]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-2.png" type="Texture" id=28]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-3.png" type="Texture" id=29]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-4.png" type="Texture" id=30]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-5.png" type="Texture" id=31]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-6.png" type="Texture" id=32]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-7.png" type="Texture" id=33]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-8.png" type="Texture" id=34]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-9.png" type="Texture" id=35]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-10.png" type="Texture" id=36]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-11.png" type="Texture" id=37]
-[ext_resource path="res://assets/qd_atk/Atk_Anim-12.png" type="Texture" id=38]
-[ext_resource path="res://assets/qd_atk/atk1.tres" type="Animation" id=39]
-[ext_resource path="res://assets/default_theme.tres" type="Theme" id=40]
-[ext_resource path="res://assets/acorn.png" type="Texture" id=41]
-[ext_resource path="res://title_font.tres" type="DynamicFont" id=42]
-[ext_resource path="res://selector.tscn" type="PackedScene" id=43]
-[ext_resource path="res://assets/hit.wav" type="AudioStream" id=44]
-[ext_resource path="res://assets/atk_1_1/atk1_frames.tres" type="SpriteFrames" id=45]
+[ext_resource path="res://attack_handler.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/default_theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/acorn.png" type="Texture" id=4]
+[ext_resource path="res://title_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://selector.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/hit.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/atk_1_1/atk1_frames.tres" type="SpriteFrames" id=8]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ) ],
-"loop": false,
-"name": "fall",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "punch",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
-"loop": true,
-"name": "run",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
-"loop": false,
-"name": "die",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "jump",
-"speed": 20.0
-} ]
-
-[sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.0306748, 0.687117, 0.834356, 0.91411 )
-colors = PoolColorArray( 1, 0, 0, 1, 1, 0, 0, 1, 1, 0.370861, 0.370861, 1, 1, 0.316918, 0.316918, 1, 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 26 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ) ],
-"loop": true,
-"name": "prefab",
-"speed": 5.0
-} ]
-
-[sub_resource type="Animation" id=4]
-resource_name = "atk1_1"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.000131488 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 0, 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../MeshInstance2D:width")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.00437791, 0.296109 ),
-"transitions": PoolRealArray( 0.277392, 0.267943 ),
-"update": 0,
-"values": [ 5.0, 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("..:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13.2668, 89.9754 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 length = 4.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -160,7 +27,7 @@ tracks/0/keys = {
 "values": [ Color( 0.4, 0.4, 0.4, 0 ), Color( 0.4, 0.4, 0.4, 1 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 length = 4.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -187,11 +54,11 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -800 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=8]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 45.0
 height = 132.439
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=5]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("heads:frame")
@@ -482,53 +349,19 @@ tracks/23/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="bloo" type="KinematicBody2D" parent="."]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="bloo"]
-position = Vector2( 3.25806, 6.51607 )
-scale = Vector2( 0.2, 0.2 )
-frames = SubResource( 1 )
-animation = "idle"
-playing = true
-
-[node name="atk_anim" type="Node2D" parent="bloo/AnimatedSprite"]
-position = Vector2( 500, -100 )
-scale = Vector2( 1.3, 1.3 )
-
-[node name="nippy" type="Sprite" parent="bloo/AnimatedSprite/atk_anim"]
-position = Vector2( -474.07, 167.246 )
-scale = Vector2( 0.6, 0.6 )
-texture = ExtResource( 25 )
-
-[node name="MeshInstance2D" type="Line2D" parent="bloo/AnimatedSprite/atk_anim"]
-position = Vector2( 0, -5 )
-scale = Vector2( 5, 5 )
-points = PoolVector2Array( -40, 0, 0, 0 )
-width = 4.57415
-default_color = Color( 1, 0, 0, 1 )
-gradient = SubResource( 2 )
-texture_mode = -1392464896
-begin_cap_mode = 1
-end_cap_mode = 1
-
-[node name="AnimatedSprite2" type="AnimatedSprite" parent="bloo/AnimatedSprite/atk_anim"]
-scale = Vector2( 0.6, 0.6 )
-frames = SubResource( 3 )
-animation = "prefab"
-
-[node name="ATK_PLAYER" type="AnimationPlayer" parent="bloo/AnimatedSprite/atk_anim/AnimatedSprite2"]
-anims/atk1 = ExtResource( 39 )
-anims/atk1_1 = SubResource( 4 )
+[node name="AnimatedSprite" parent="bloo" instance=ExtResource( 2 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bloo"]
 position = Vector2( -1.26053, 5.67226 )
 scale = Vector2( 2.36068, 1.07981 )
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="ground_detection" type="RayCast2D" parent="bloo"]
 position = Vector2( 0, 100 )
@@ -548,7 +381,7 @@ offset_v = -1.0
 [node name="ui" type="Control" parent="bloo/Camera2D/CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 40 )
+theme = ExtResource( 3 )
 
 [node name="acorn" type="TextureRect" parent="bloo/Camera2D/CanvasLayer/ui"]
 margin_left = 1.04724
@@ -556,7 +389,7 @@ margin_top = 20.0
 margin_right = 401.047
 margin_bottom = 420.0
 rect_scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 41 )
+texture = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="bloo/Camera2D/CanvasLayer/ui"]
 margin_left = 40.0
@@ -580,7 +413,7 @@ percent_visible = false
 [node name="transition_screen" type="Control" parent="bloo/Camera2D/CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 40 )
+theme = ExtResource( 3 )
 
 [node name="filter" type="ColorRect" parent="bloo/Camera2D/CanvasLayer/transition_screen"]
 anchor_right = 1.0
@@ -602,7 +435,7 @@ margin_left = -184.5
 margin_top = -170.0
 margin_right = 184.5
 margin_bottom = -112.0
-custom_fonts/font = ExtResource( 42 )
+custom_fonts/font = ExtResource( 5 )
 text = "game over"
 
 [node name="MarginContainer" type="MarginContainer" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu"]
@@ -629,20 +462,20 @@ margin_right = 224.0
 margin_bottom = 60.0
 text = "quit"
 
-[node name="selector" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu/MarginContainer/VBoxContainer" instance=ExtResource( 43 )]
+[node name="selector" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter/game_over_menu/MarginContainer/VBoxContainer" instance=ExtResource( 6 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="bloo/Camera2D/CanvasLayer/transition_screen/filter"]
-anims/fade_out = SubResource( 6 )
-anims/game_over = SubResource( 7 )
+anims/fade_out = SubResource( 2 )
+anims/game_over = SubResource( 3 )
 
 [node name="hitbox" type="Area2D" parent="bloo"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bloo/hitbox"]
 position = Vector2( -1.2605, 6.30251 )
-shape = SubResource( 8 )
+shape = SubResource( 4 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="bloo"]
-stream = ExtResource( 44 )
+stream = ExtResource( 7 )
 
 [node name="epic_attack" type="Node2D" parent="."]
 editor/display_folded = true
@@ -652,58 +485,56 @@ scale = Vector2( 0.12, 0.12 )
 
 [node name="ab_2" type="AnimatedSprite" parent="epic_attack"]
 visible = false
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "ab_2"
 
 [node name="ab_1" type="AnimatedSprite" parent="epic_attack"]
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "ab_1"
 frame = 1
 
 [node name="nippy" type="AnimatedSprite" parent="epic_attack"]
 visible = false
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "nippy"
 offset = Vector2( 0, 250 )
 
 [node name="l2" type="AnimatedSprite" parent="epic_attack"]
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "l2"
 frame = 2
 
 [node name="bodies" type="AnimatedSprite" parent="epic_attack"]
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "bodys"
 frame = 2
 
 [node name="heads" type="AnimatedSprite" parent="epic_attack"]
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "heads"
 frame = 2
 
 [node name="af_1" type="AnimatedSprite" parent="epic_attack"]
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "af_1"
 frame = 2
 
 [node name="af_2" type="AnimatedSprite" parent="epic_attack"]
 visible = false
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "af_2"
 
 [node name="l1_2" type="AnimatedSprite" parent="epic_attack"]
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "l1_2"
 
 [node name="l1" type="AnimatedSprite" parent="epic_attack"]
-frames = ExtResource( 45 )
+frames = ExtResource( 8 )
 animation = "l1"
 frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="epic_attack"]
-anims/atk1_1 = SubResource( 9 )
-anims/body_set = SubResource( 10 )
+anims/atk1_1 = SubResource( 5 )
+anims/body_set = SubResource( 6 )
 
-[connection signal="animation_finished" from="bloo/AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
-[connection signal="animation_finished" from="bloo/AnimatedSprite/atk_anim/AnimatedSprite2" to="." method="_on_AnimatedSprite2_animation_finished"]
 [connection signal="body_entered" from="bloo/hitbox" to="." method="_on_hitbox_body_entered"]
