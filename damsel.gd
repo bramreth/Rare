@@ -48,9 +48,11 @@ func get_direction():
 	elif direction < 0:
 		$bloo/atk_anim.scale.x = -0.3
 		$bloo/atk_anim.position.x = -abs($bloo/atk_anim.position.x)
+		$bloo/CollisionShape2D.scale.x = -1
 	else:
 		$bloo/atk_anim.scale.x = 0.3
 		$bloo/atk_anim.position.x = abs($bloo/atk_anim.position.x)
+		$bloo/CollisionShape2D.scale.x = 1
 	return direction
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -167,60 +169,17 @@ func death():
 
 func _on_atk_anim_end_of_chain():
 	current_state = state.IDLE
+	print($bloo/CollisionShape2D.position)
+	$bloo.position.x = $bloo/CollisionShape2D.position.x
+	$bloo/CollisionShape2D.position = Vector2(0, 17.5)
+	$bloo/CollisionShape2D.shape.extents = Vector2(25, 100)
+	
 	
 """
-a lot of guts need to be ripped out here if I'm going to make this work.
-
-I need to create an input queue for attacks
-
-this needs to be handled before I focus too much on animations.
-step 1, poll attack inputs.
-this is going to be a finite state machine I am going to need to map out.
-so let's think about my attacks:
-	x = punch
-	y = kick
-	
-my first chain will be punch kick punch
-
-after punch store it in a list of the current chain.
-when the animation times out empty the chain
-if another input is recieved and it is a valid transition, queue it.
-
-then when the current animation finishes play that animation 
-
-it would be nice to figure out pre-emptively starting the next attack if it is safe
-(within safety bounds of the previous attack)
-
-for each phase I need to predefine attack checks. 
-let's use raycasts for each
-
-setup raycast in antmation, check if there is a first colliusion with an enemy? and send
- off a hit signal with the damage for that part of the combo
-
-bitterblossom = [punch, kick, punch]
-chain = []
-current_index
-if input = x:
-	chain.append(punch)
-elif input = y:
-	chain.append(kick)
-	
-if chain invalid:
-	curent_index +=1
-	if chain.len() >= current_index
-		play_anim(chain, current_index)
-	else
-		chain.empty
-		current_index = 0
-	
-spritesheet.timeout:
-	chain.empty()
-	
-check_chain(chain_in):
-	return chain_in in chain_list [[p],[p,k],[p,k,p]]
-	
-play_anim(chain, current_index)
-	lookup the animation to play for this part, lots of these willneed hardcoding as the position the player...
+there are some fundamental problems with teh animation system that need resolving:
+	I need to move bloo instead of the collision body as at the end of the animation teh position resets to the start point
+	flipping left doesn't work for the collision body as it still moves right even when the animation is going left
+	gravity is ignored during animations
 
 """
 
